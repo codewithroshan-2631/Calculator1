@@ -1,24 +1,27 @@
+let display = document.getElementById("display");
+let buttons = document.querySelectorAll(".btn");
+let expression = "";
 
-let string = "";
-let buttons = document.querySelectorAll('.button');
-Array.from(buttons).forEach((button) => {
-    button.addEventListener('click', (e) => {
-        if (e.target.innerHTML == '=') {
-            try {
-                string = eval(string);
-                document.querySelector('input').value = string;
-            } catch {
-                document.querySelector('input').value = "Error";
-            }
-        }
-        else if (e.target.innerHTML == 'AC') {
-            string = "";
-            document.querySelector('input').value = string;
-        }
-        else {
-            string = string + e.target.innerHTML;
-            document.querySelector('input').value = string;
-        }
-    });
+buttons.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    let value = e.target.innerText;
+
+    if (value === "AC") {
+      expression = "";
+      display.value = "";
+    } 
+    else if (value === "=") {
+      try {
+        expression = eval(expression).toString();
+        display.value = expression;
+      } catch {
+        display.value = "Error";
+        expression = "";
+      }
+    } 
+    else {
+      expression += value;
+      display.value = expression;
+    }
+  });
 });
-
